@@ -28,6 +28,7 @@
 currency = "PLN"
 expenses = []
 next_expense_id = 1
+current_id = 0
 # expense= {
 #     "id": int,
 #     "amount": float,
@@ -62,7 +63,7 @@ def add_expense(expenses_list, expense_id, amount, category, description):
 #   - Assign the returned list back into the global expenses variable
 expenses = add_expense(expenses,next_expense_id,100,"Food","Bread and Eggs for Breakfast")
 next_expense_id+=1
-expenses = add_expense(expenses,next_expense_id,200,"Clothing","Santa PJS for Christmas")
+expenses = add_expense(expenses,next_expense_id,200,"Shopping","Santa PJS for Christmas")
 next_expense_id+=1
 expenses = add_expense(expenses,next_expense_id,300,"Fruits","Fruit varieties for healthy dieting")
 next_expense_id+=1
@@ -102,7 +103,7 @@ print(overall_total)
 #
 # Then deliberately try:
 #   print(total)
-print(total)
+# print(total)
 # This should fail because total is local.
 #
 # ------------------------------------------------------------
@@ -113,7 +114,18 @@ print(total)
 #
 #   def calculate_category_total(expenses_list, category, currency):
 def calculate_category_total(expenses_list, category, currency):
-     category_total = 0
+    category_total = 0
+    for expense in expenses_list:
+        if expense["category"] == category:
+            category_total+=expense["amount"]
+    print(f"Category_Total:{category_total} {currency}")
+    return category_total
+
+
+calculate_category =calculate_category_total(expenses,"Shopping",currency)
+calculate_category =calculate_category_total(expenses,"Food",currency)
+
+
 # Inside:
 #   - Create category_total = 0
 #   - Sum amounts where expense["category"] matches the category
@@ -140,7 +152,13 @@ def calculate_category_total(expenses_list, category, currency):
 #
 # This should raise an error because next_expense_id becomes a local
 # variable inside the function before being defined.
-#
+# def generate_id():
+#     next_expense_id = next_expense_id + 1
+#     return next_expense_id
+
+# generate_id()
+# generate_id()
+
 # ------------------------------------------------------------
 # 6. FIXING generate_id – Two Versions
 # ------------------------------------------------------------
@@ -151,7 +169,15 @@ def calculate_category_total(expenses_list, category, currency):
 #       global next_expense_id
 #       next_expense_id = next_expense_id + 1
 #       return next_expense_id
-#
+
+def generate_id_global():
+    global next_expense_id
+    next_expense_id = next_expense_id + 1
+    return next_expense_id
+
+generate_id_global()
+generate_id_global()
+generate_id_global()
 # Call this at least three times.
 #
 # 6B. Pure version (preferred):
@@ -159,7 +185,17 @@ def calculate_category_total(expenses_list, category, currency):
 #   def generate_id_pure(current_id):
 #       new_id = current_id + 1
 #       return new_id
-#
+
+def generate_id_pure(current_id):
+    new_id = current_id + 1
+    print(f"ID:{new_id}")
+    return new_id
+    
+generate_id_pure(current_id)
+
+generate_id_pure(current_id)
+
+
 # Reset next_expense_id = 0 and call generate_id_pure() twice,
 # updating next_expense_id each time.
 #
