@@ -28,7 +28,7 @@
 currency = "PLN"
 expenses = []
 next_expense_id = 1
-current_id = 0
+
 # expense= {
 #     "id": int,
 #     "amount": float,
@@ -190,11 +190,11 @@ def generate_id_pure(current_id):
     new_id = current_id + 1
     print(f"ID:{new_id}")
     return new_id
-    
-generate_id_pure(current_id)
 
-generate_id_pure(current_id)
-
+next_expense_id = 0    
+next_expense_id= generate_id_pure(next_expense_id)
+next_expense_id= generate_id_pure(next_expense_id)
+print(next_expense_id)
 
 # Reset next_expense_id = 0 and call generate_id_pure() twice,
 # updating next_expense_id each time.
@@ -208,7 +208,31 @@ generate_id_pure(current_id)
 #   - Every time before adding an expense:
 #
 #         next_expense_id = generate_id_pure(next_expense_id)
-#
+def add_expense(expenses_list, expense_id, amount, category, description):
+      expense = {
+      "id": expense_id,
+      "amount": amount,
+      "category": category,
+     "description":description
+    }
+      expenses_list.append(expense)
+      return expenses_list
+def generate_id_pure(current_id):
+    new_id = current_id + 1
+    return new_id
+next_expense_id = 0    
+next_expense_id= generate_id_pure(next_expense_id)
+expenses = add_expense(expenses,next_expense_id,100,"Food","Bread and Eggs for Breakfast")
+next_expense_id= generate_id_pure(next_expense_id)
+expenses = add_expense(expenses,next_expense_id,200,"Shopping","Santa PJS for Christmas")
+next_expense_id= generate_id_pure(next_expense_id)
+expenses = add_expense(expenses,next_expense_id,300,"Fruits","Fruit varieties for healthy dieting")
+next_expense_id= generate_id_pure(next_expense_id)
+expenses = add_expense(expenses,next_expense_id,400,"Shopping","Christmas Groceries")
+next_expense_id= generate_id_pure(next_expense_id)
+expenses = add_expense(expenses,next_expense_id,500,"Skincare","Skincare varieties for the month")
+
+print(expenses)
 #   - Then call add_expense with that ID.
 #   - Add at least 5 expenses this way.
 #
@@ -222,7 +246,24 @@ generate_id_pure(current_id)
 #   2. The overall total using calculate_total(expenses)
 #   3. At least two category totals using calculate_category_total(...)
 #   4. The final value of next_expense_id
-#
+# 1. Print all expenses
+print("\n ALL EXPENSES")
+for e in expenses:
+    print(f"ID:{e['id']} : {e['category']} , {e['amount']} , {e['description']}")
+
+# 2. Overall total
+overall_total = calculate_total(expenses)
+print("\nTotal Amount spent:", overall_total)
+
+# 3. Two category totals
+print("\nFood Total:", calculate_category_total(expenses, "Food",currency))
+print("Shopping Total:", calculate_category_total(expenses, "Shopping",currency))
+
+# 4. Final value of next_expense_id
+print("\nFinal next_expense_id:", next_expense_id)
+
+
+     
 # When executed, the file should produce visible output demonstrating
 # correct function behavior and correct understanding of:
 #   - parameters vs arguments
