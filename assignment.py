@@ -248,8 +248,8 @@ print(expenses)
 #   4. The final value of next_expense_id
 # 1. Print all expenses
 print("\n ALL EXPENSES")
-for e in expenses:
-    print(f"ID:{e['id']} : {e['category']} , {e['amount']} , {e['description']}")
+for expense in expenses:
+    print(f"ID:{expense['id']} : {expense['category']} , {expense['amount']} , {expense['description']}")
 
 # 2. Overall total
 overall_total = calculate_total(expenses)
@@ -257,7 +257,8 @@ print("\nTotal Amount spent:", overall_total)
 
 # 3. Two category totals
 print("\nFood Total:", calculate_category_total(expenses, "Food",currency))
-print("Shopping Total:", calculate_category_total(expenses, "Shopping",currency))
+
+print("\nShopping Total:", calculate_category_total(expenses, "Shopping",currency))
 
 # 4. Final value of next_expense_id
 print("\nFinal next_expense_id:", next_expense_id)
